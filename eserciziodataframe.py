@@ -4,8 +4,10 @@ import csv as csv
 
 hospdata=pd.read_csv("dati-ospedali.csv")
 
+#frequenze assolute
 absfreq = hospdata['Regione'].value_counts()
 
+#frequenze relative
 relfreq = pd.Series(data= absfreq.values/absfreq.values.sum() , index= absfreq.axes, name= 'frequenze_relative')
 
 colmedici = hospdata[['Denominazione Str. Pubblica New', 'Medici SSN']] 
@@ -19,6 +21,7 @@ ospingegn = hospdata[['Regione','Ingegneri SSN']]
 ingegncamp= ospingegn[ospingegn['Regione']=='Campania']['Ingegneri SSN']
 mediaingcamp = ingegncamp.values.sum()/ingegncamp.count()
 
+#varianza campionaria
 associal= hospdata[['Assistenti sociali SSN','Medici SSN']]
 lessmedi = associal[associal['Medici SSN']>400]['Assistenti sociali SSN']
 associalvar = lessmedi[lessmedi>-1].var() 
